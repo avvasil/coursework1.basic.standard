@@ -4,54 +4,56 @@ import java.text.DecimalFormat;
 
 public class Main {
 
-    private static float totalMonthSalary;
-    private static float totalMonthSalaryInDepartment;
     private static final Employee[] employees = new Employee[10];
 
     public static void main(String[] args) {
 
-        addEmployee(new Employee("Сергеев", " Сергей ", "Сергеевич", 1, 155000));
-        addEmployee(new Employee("Петров", " Пётр ", "Петрович", 2, 160560));
-        addEmployee(new Employee("Сидоров", " Сидор ", "Сидорович", 3, 170800));
-        addEmployee(new Employee("Иванов", " Иван ", "Иванович", 4, 183400));
-        addEmployee(new Employee("Фёдоров", " Фёдор ", "Фёдорович", 5, 245000));
-        addEmployee(new Employee("Семёнов", " Семён ", "Семёнович", 3, 253644));
+        addEmployee(new Employee("Сергеев", " Сергей ", "Сергеевич", 1, 155_000f));
+        addEmployee(new Employee("Петров", " Пётр ", "Петрович", 2, 160_560f));
+        addEmployee(new Employee("Сидоров", " Сидор ", "Сидорович", 3, 170_800f));
+        addEmployee(new Employee("Иванов", " Иван ", "Иванович", 4, 183_400f));
+        addEmployee(new Employee("Фёдоров", " Фёдор ", "Фёдорович", 5, 245_000f));
+        addEmployee(new Employee("Семёнов", " Семён ", "Семёнович", 3, 253_644f));
 
 //basic
-//            System.out.println("=====================================================================================");
-//            listOfAllEmployees(employees);//task1.1
-//            System.out.println("=====================================================================================");
-//            totalMonthlySalary(employees);//task1.2
-//            System.out.println("=====================================================================================");
-//            minSalaryPerson(employees);//task1.3
-//            System.out.println("=====================================================================================");
-//            maxSalaryPerson(employees);//task1.4
-//            System.out.println("=====================================================================================");
-//            averageMonthSalary(employees);//task1.5
-//            System.out.println("=====================================================================================");
-//            listOfFullNamesAllEmployees(employees);//task1.6
-//            System.out.println("=====================================================================================");
+            System.out.println("=====================================================================================");
+            listOfAllEmployees();//task1.1
+            System.out.println("=====================================================================================");
+            findTotalMonthlySalary();//task1.2
+            System.out.println("Сумма затрат на зарплаты в месяц составила " + findTotalMonthlySalary() + " рублей.");
+            System.out.println("=====================================================================================");
+            findMinSalaryPerson();//task1.3
+            System.out.println("=====================================================================================");
+            findMaxSalaryPerson();//task1.4
+            System.out.println("=====================================================================================");
+            findAverageMonthSalary();//task1.5
+            System.out.println("Среднее значение зарплат за месяц составила " + findAverageMonthSalary()+ " рублей.");
+            System.out.println("=====================================================================================");
+            listOfFullNamesAllEmployees();//task1.6
+            System.out.println("=====================================================================================");
 
 //standard
-//            System.out.println("===============================================================================================");
-//            riseSalary(employees, 10);//task1
-//            System.out.println("===============================================================================================");
-//            minSalaryPersonInDepartment(employees, 3);//task2.1
-//            System.out.println("===============================================================================================");
-//            maxSalaryPersonInDepartment(employees, 3);//task2.2
-//            System.out.println("===============================================================================================");
-//            totalMonthlySalaryInDepartment(employees, 3);//task2.3
-//            System.out.println("===============================================================================================");
-//            averageMonthSalaryInDepartment(employees, 3);//task2.4
-//            System.out.println("===============================================================================================");
-//            riseSalaryInDepartment(employees, 15, 3);//task2.5
-//            System.out.println("===============================================================================================");
-//            listOfAllEmployeesInDepartment(employees, 3);//task2.6
-//            System.out.println("===============================================================================================");
-//            employeesWithSalaryLessThen(employees, 200000);//task3.1
-//            System.out.println("===============================================================================================");
-//            employeesWithSalaryMoreThen(employees, 100000);//task3.2
-//            System.out.println("===============================================================================================");
+            System.out.println("===============================================================================================");
+            riseSalary(10);//task1
+            System.out.println("===============================================================================================");
+            findMinSalaryPersonInDepartment(3);//task2.1
+            System.out.println("===============================================================================================");
+            findMaxSalaryPersonInDepartment(3);//task2.2
+            System.out.println("===============================================================================================");
+            findTotalMonthlySalaryInDepartment(3);//task2.3
+            System.out.println("Сумма затрат на зарплаты в месяц по отделу №" + findTotalMonthlySalaryInDepartment(3) + " составила: " + findTotalMonthlySalaryInDepartment(3) + " рублей.");
+            System.out.println("===============================================================================================");
+            findAverageMonthSalaryInDepartment(3);//task2.4
+            System.out.println("Среднее значение зарплат за месяц по отделу №" + findAverageMonthSalaryInDepartment(3) + " составила: " + findAverageMonthSalaryInDepartment(3) + " рублей.");
+            System.out.println("===============================================================================================");
+            riseSalaryInDepartment(15, 3);//task2.5
+            System.out.println("===============================================================================================");
+            listOfAllEmployeesInDepartment(3);//task2.6
+            System.out.println("===============================================================================================");
+            findEmployeesWithSalaryLessThen(200000);//task3.1
+            System.out.println("===============================================================================================");
+            findEmployeesWithSalaryMoreThen(100000);//task3.2
+            System.out.println("===============================================================================================");
 
     }
 //basic
@@ -66,24 +68,25 @@ public class Main {
         return false;
     }
 
-    public static void listOfAllEmployees(Employee[] employees) {
+    public static void listOfAllEmployees() {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null) {
-                System.out.println(employees[i].toString());
+                System.out.println(employees[i]);
             }
         }
     }
 
-    public static void totalMonthlySalary(Employee[] employees) {
+    public static float findTotalMonthlySalary() {
+        float totalMonthlySalary = 0;
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null) {
-                totalMonthSalary += employees[i].getSalary();
+                totalMonthlySalary += employees[i].getSalary();
             }
         }
-        System.out.println("Сумма затрат на зарплаты в месяц составила " + totalMonthSalary + " рублей.");
+        return totalMonthlySalary;
     }
 
-    public static void minSalaryPerson(Employee[] employees) {
+    public static void findMinSalaryPerson() {
         float minSalary = Float.MAX_VALUE;
         String minSalaryPerson = null;
         for (int i = 0; i < employees.length; i++) {
@@ -95,7 +98,7 @@ public class Main {
         System.out.println("Сотрудник с минимальной зарплатой " + minSalaryPerson + ". Зарплата " + minSalary + " рублей.");
     }
 
-    public static void maxSalaryPerson(Employee[] employees) {
+    public static void findMaxSalaryPerson() {
         float maxSalary = Float.MIN_VALUE;
         String maxSalaryPerson = null;
         for (int i = 0; i < employees.length; i++) {
@@ -107,19 +110,18 @@ public class Main {
         System.out.println("Сотрудник с максимальной зарплатой " + maxSalaryPerson + ". Зарплата " + maxSalary + " рублей.");
     }
 
-    public static void averageMonthSalary(Employee[] employees) {
+    public static float findAverageMonthSalary() {
         int employeesNumbers = 0;
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null) {
                 employeesNumbers++;
             }
         }
-        float averageMonthSalary = totalMonthSalary / employeesNumbers;
-        String formattedAverageMonthSalary = new DecimalFormat("#0.00").format(averageMonthSalary);
-        System.out.println("Среднее значение зарплат за месяц составила " + formattedAverageMonthSalary + " рублей.");
+        float averageMonthSalary = findTotalMonthlySalary() / employeesNumbers;
+        return averageMonthSalary;
     }
 
-    public static void listOfFullNamesAllEmployees(Employee[] employees) {
+    public static void listOfFullNamesAllEmployees() {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null) {
                 System.out.println("Ф.И.О. сотрудника: " + employees[i].getFullName());
@@ -129,7 +131,7 @@ public class Main {
 
 //standard
 
-    public static void riseSalary(Employee[] employees, int salaryRaising) {
+    public static void riseSalary(int salaryRaising) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null) {
                 employees[i].setSalary(employees[i].getSalary() * (100 + salaryRaising) / 100);
@@ -138,7 +140,7 @@ public class Main {
         }
     }
 
-    public static void minSalaryPersonInDepartment(Employee[] employees, int department) {
+    public static void findMinSalaryPersonInDepartment(int department) {
         float minSalary = Float.MAX_VALUE;
         String minSalaryPerson = null;
         for (int i = 0; i < employees.length; i++) {
@@ -150,7 +152,7 @@ public class Main {
         System.out.println("Сотрудник с минимальной зарплатой в отделе №" + department + " - " + minSalaryPerson + ". Зарплата: " + minSalary + ".");
     }
 
-    public static void maxSalaryPersonInDepartment(Employee[] employees, int department) {
+    public static void findMaxSalaryPersonInDepartment(int department) {
         float maxSalary = Float.MIN_VALUE;
         String maxSalaryPerson = null;
         for (int i = 0; i < employees.length; i++) {
@@ -162,28 +164,28 @@ public class Main {
         System.out.println("Сотрудник с максимальной зарплатой в отделе №" + department + " - " + maxSalaryPerson + ". Зарплата: " + maxSalary + ".");
     }
 
-    public static void totalMonthlySalaryInDepartment(Employee[] employees, int department) {
+    public static float findTotalMonthlySalaryInDepartment(int department) {
+        float totalMonthSalaryInDepartment = 0f;
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null && employees[i].getDepartment() == department) {
                 totalMonthSalaryInDepartment += employees[i].getSalary();
             }
-        }
-        System.out.println("Сумма затрат на зарплаты в месяц по отделу №" + department + " составила: " + totalMonthSalaryInDepartment + " рублей.");
+        } return totalMonthSalaryInDepartment;
     }
 
-    public static void averageMonthSalaryInDepartment(Employee[] employees, int department) {
+    public static float findAverageMonthSalaryInDepartment(int department) {
         int employeesNumbersInDepartment = 0;
+        float averageMonthSalaryInDepartment = 0f;
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null && employees[i].getDepartment() == department) {
                 employeesNumbersInDepartment++;
             }
         }
-        float averageMonthSalaryInDepartment = totalMonthSalaryInDepartment / employeesNumbersInDepartment;
-        String formattedAverageMonthSalaryInDepartment = new DecimalFormat("#0.00").format(averageMonthSalaryInDepartment);
-        System.out.println("Среднее значение зарплат за месяц по отделу №" + department + " составила: " + averageMonthSalaryInDepartment + " рублей.");
+        averageMonthSalaryInDepartment = findTotalMonthlySalaryInDepartment(department) / employeesNumbersInDepartment;
+        return averageMonthSalaryInDepartment;
     }
 
-    public static void riseSalaryInDepartment(Employee[] employees, int salaryRaising, int department) {
+    public static void riseSalaryInDepartment(int salaryRaising, int department) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null && employees[i].getDepartment() == department) {
                 employees[i].setSalary(employees[i].getSalary() * (100 + salaryRaising) / 100);
@@ -192,7 +194,7 @@ public class Main {
         }
     }
 
-    public static void listOfAllEmployeesInDepartment(Employee[] employees, int department) {
+    public static void listOfAllEmployeesInDepartment(int department) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null && employees[i].getDepartment() == department) {
                 System.out.println("Сотрудник: " + employees[i].getFullName() + ", зарплата: " + employees[i].getSalary() + ", ID: " + employees[i].getId());
@@ -200,7 +202,7 @@ public class Main {
         }
     }
 
-    public static void employeesWithSalaryLessThen(Employee[] employees, float targetSalary) {
+    public static void findEmployeesWithSalaryLessThen(float targetSalary) {
         System.out.println("Сотрудники с зарплатой, меньше " + targetSalary);
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null && employees[i].getSalary() < targetSalary) {
@@ -210,7 +212,7 @@ public class Main {
 
     }
 
-    public static void employeesWithSalaryMoreThen(Employee[] employees, float targetSalary) {
+    public static void findEmployeesWithSalaryMoreThen(float targetSalary) {
         System.out.println("Сотрудники с зарплатой, больше " + targetSalary);
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null && employees[i].getSalary() > targetSalary) {
